@@ -45,7 +45,11 @@ body {
 }
 
 /* Netflix logo animation */
-
+a {
+  text-decoration: none;
+  color: inherit;
+  
+}
 
 /* Smaller logo for the profiles screen */
 .small-logo .netflix-text {

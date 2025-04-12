@@ -1,7 +1,8 @@
+// filepath: d:\Proyectos Personales\iznaflix-app\next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  
 };
 
 export default nextConfig;
