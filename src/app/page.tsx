@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { IznaflixLogo } from "./components/iznaflix-logo";
 import Perfiles from "./components/perfiles";
 
-export default function Home() {
+function HomeContent() {
     const searchParams = useSearchParams();
     const [showContent, setShowContent] = useState(false);
     const [animationFinished, setAnimationFinished] = useState(false);
@@ -57,5 +57,13 @@ export default function Home() {
                 )}
             </div>
         </main>
+    );
+}
+
+export default function Home() {
+    return (
+        <Suspense fallback={<div>Cargando...</div>}>
+            <HomeContent />
+        </Suspense>
     );
 }
