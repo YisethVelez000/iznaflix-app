@@ -1,56 +1,61 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { IznaflixLogo } from "./components/iznaflix-logo"
-import { ArrowRight } from "lucide-react"
-import Perfiles from "./components/perfiles"
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { IznaflixLogo } from "./components/iznaflix-logo";
+import Perfiles from "./components/perfiles";
 
 export default function Home() {
-  const [animationStarted, setAnimationStarted] = useState(false)
-  const [showContent, setShowContent] = useState(false)
+    const searchParams = useSearchParams();
+    const [showContent, setShowContent] = useState(false);
+    const [animationFinished, setAnimationFinished] = useState(false);
 
-  const handleContinue = () => {
-    // Start the animation sequence
-    setAnimationStarted(true)
+    useEffect(() => {
+        // Si el parámetro `showContent` está presente, omite la animación
+        if (searchParams.get("showContent") === "true") {
+            setShowContent(true);
+            setAnimationFinished(true);
+        } else {
+            // Si no hay parámetro, muestra la animación y luego el contenido
+            const timer = setTimeout(() => {
+                setShowContent(true);
+                const fadeOutTimer = setTimeout(() => {
+                    setAnimationFinished(true);
+                }, 1000); // Duración del desvanecimiento (1 segundo)
+                return () => clearTimeout(fadeOutTimer);
+            }, 7000); // Duración de la animación (7 segundos)
 
-    // Show content after animation completes (2 seconds later)
-    setTimeout(() => {
-      setShowContent(true)
-    }, 2000)
-  }
+            return () => clearTimeout(timer); // Limpia el temporizador al desmontar
+        }
+    }, [searchParams]);
 
+    return (
+        <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white overflow-hidden">
+            <div className="relative w-full h-screen flex flex-col items-center justify-center">
+                {/* Contenedor de animación del logo */}
+                {!animationFinished && (
+                    <div
+                        className={`transition-all duration-1000 ease-in-out flex flex-col items-center ${
+                            showContent ? "opacity-0 scale-90" : "opacity-100 scale-100"
+                        }`}
+                    >
+                        <IznaflixLogo className="mb-16" />
+                    </div>
+                )}
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white overflow-hidden">
-      <div className="relative w-full h-screen flex flex-col items-center justify-center">
-        {/* Logo animation container */}
-        <div
-          className={`transition-all duration-1000 ease-in-out flex flex-col items-center ${
-            animationStarted ? "scale-50 opacity-0" : "scale-100 opacity-100"
-          }`}
-        >
-          <IznaflixLogo className="mb-16" />
-
-          {!animationStarted && (
-            <button 
-              onClick={handleContinue}
-              className="bg-netflix-red hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-sm text-lg transition-colors w-16 h-16 flex items-center justify-center"
-            >
-              <ArrowRight className="w-6 h-6 bg-transparent text-white" />
-            </button>
-          )}
-        </div>
-
-        {/* Content that appears after animation */}
-        {showContent && (
-          <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black">
-            <div className="flex flex-col items-center">
-              <h1 className="text-4xl font-bold mb-6">¿Quién está viendo?</h1>
-              <Perfiles />
+                {/* Contenido que aparece después de la animación */}
+                {showContent && (
+                    <div
+                        className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black"
+                        id="perfiles"
+                    >
+                        <div className="flex flex-col items-center">
+                            <h2 className="text-4xl font-bold mb-6">¿Quién está viendo?</h2>
+                            <Perfiles />
+                        </div>
+                    </div>
+                )}
             </div>
-          </div>
-        )}
-      </div>
-    </main>
-  )
+        </main>
+    );
 }

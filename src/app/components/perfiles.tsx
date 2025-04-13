@@ -14,6 +14,7 @@ export default function Perfiles() {
     ];
 
     return (
+        /* llamamos al header */
         <div className="grid grid-cols-4 gap-y-12 gap-x-6 justify-items-center mt-12">
             {perfiles.map((perfil, index) => (
                 <div key={index} className="flex flex-col items-center group cursor-pointer transition-transform transform hover:scale-105 mb-[20px] mx-[20px] text-center">

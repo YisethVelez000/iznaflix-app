@@ -1,0 +1,32 @@
+button {
+    background-color: black;
+    padding-left : 40px;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    position: relative;
+    size: 20px; /* Necesario para posicionar el ::after */
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    bottom: -2px; /* Ajusta la posición de la línea */
+    left: 0;
+    width: 0;
+    height: 2px; /* Grosor de la línea */
+    background-color: red; /* Color de la línea */
+    transition: width 0.3s ease; /* Animación suave */
+    margin-left: 5px;
+}
+
+button:hover::after {
+    width: 100%; /* La línea se expande al 100% del ancho del botón */
+}
+
+/* le añadimos el color rojo a h1 con id tittle*/
+h1#tittle {
+    color: #e50914;
+    font-size: 1.5rem;
+    padding-left: 40px;
+}
