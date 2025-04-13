@@ -21,9 +21,9 @@ function HomeContent() {
                 setShowContent(true);
                 const fadeOutTimer = setTimeout(() => {
                     setAnimationFinished(true);
-                }, 1000); // Duración del desvanecimiento (1 segundo)
+                }, 10000); // Duración del desvanecimiento (1 segundo)
                 return () => clearTimeout(fadeOutTimer);
-            }, 7000); // Duración de la animación (7 segundos)
+            }, 2000); // Duración de la animación (7 segundos)
 
             return () => clearTimeout(timer); // Limpia el temporizador al desmontar
         }
