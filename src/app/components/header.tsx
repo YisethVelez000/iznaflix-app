@@ -71,8 +71,6 @@ export default function Header() {
           pathname.split("/").pop()?.toLowerCase()
       )
     : null;
-
-  const perfilMostrado = perfilActual || perfiles[0];
   return (
     smallScreen ? ( 
         <header className="w-full bg-black text-white">
