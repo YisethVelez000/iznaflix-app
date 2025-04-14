@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
 const perfiles = [
@@ -42,23 +42,29 @@ const perfiles = [
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
-  //Obtener el tamaño de la pantalla 
-    useEffect(() => {
-        const handleResize = () => {
-        setSmallScreen(window.innerWidth < 768);
-        };
-    
-        window.addEventListener("resize", handleResize);
-        handleResize(); // Llamar a la función una vez al cargar el componente
-    
-        return () => {
-        window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+  const checkboxRef = useRef<HTMLInputElement>(null);
 
+  const handleNavigate = (path: string) => {
+    router.push(path);
+    // Cierra el menú
+    if (checkboxRef.current) checkboxRef.current.checked = false;
+  };
+
+  //Obtener el tamaño de la pantalla
+  useEffect(() => {
+    const handleResize = () => {
+      setSmallScreen(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Llamar a la función una vez al cargar el componente
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -71,116 +77,80 @@ export default function Header() {
           pathname.split("/").pop()?.toLowerCase()
       )
     : null;
-  return (
-    smallScreen ? ( 
-        <header className="w-full bg-black text-white">
-        <div className="flex justify-between items-center px-6 py-4">
-          <h1 id="tittle"
-            className="text-2xl font-bold text-red-600 cursor-pointer"
-            onClick={() => router.push("/")}
+  return smallScreen ? (
+    <div className="contents justify-start bg-black text-white">
+      <header className="justify-start bg-black text-white">
+        <div className="container mx-auto flex justify-container mx-auto flex justify-between items-center items-center">
+          <h1
+            id="tittle"
+            className="text-3xl font-bold cursor-pointer text-red-600 hover:text-red-500 transition duration-300"
+            onClick={() => handleNavigate("/")}
           >
             IZNAFLIX
           </h1>
-  
-          {/* Botón de menú visible solo en móvil */}
-          <button
-            className="md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          <button className="md:hidden" onClick={() => handleNavigate("//?showContent=true#perfiles")}>
+            Miembros
           </button>
-  
-          {/* Opciones del menú visibles solo en desktop */}
-          <nav className="hidden md:flex gap-6">
-            <button onClick={() => router.push("/?showContent=true#perfiles")}>
-              Miembros
-            </button>
-            <button onClick={() => router.push("/musica")}>Música</button>
-            <button onClick={() => router.push("/iland-2")}>I-LAND 2</button>
-          </nav>
+          <button className="md:hidden" onClick={() => handleNavigate("/musica")}>
+            Música
+          </button>
+          <button className="md:hidden" onClick={() => handleNavigate("/iland-2")}>
+            I-LAND 2
+          </button>
+          
         </div>
-  
-        {/* Menú móvil */}
-        {menuOpen && (
-          <div className="flex flex-col px-6 py-4 gap-4 bg-black md:hidden">
-            <button
-              onClick={() => {
-                router.push("/?showContent=true#perfiles");
-                setMenuOpen(false);
-              }}
-            >
-              Miembros
-            </button>
-            <button
-              onClick={() => {
-                router.push("/musica");
-                setMenuOpen(false);
-              }}
-            >
-              Música
-            </button>
-            <button
-              onClick={() => {
-                router.push("/iland-2");
-                setMenuOpen(false);
-              }}
-            >
-              I-LAND 2
-            </button>
-          </div>
-        )}
       </header>
-    ) : (
-        <header className="p-4 bg-black text-white">
-            <div className="container mx-auto flex justify-between items-center">
-                {/* Logo estilo Netflix */}
-                <h1 id='tittle'
-                    className="text-3xl font-bold cursor-pointer text-red-600 hover:text-red-500 transition duration-300"
-                    onClick={() => router.push('/')}
-                >
-                    IZNAFLIX
-                </h1>
+    </div>                          
+  ) : (
+    <header className="p-4 bg-black text-white">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo estilo Netflix */}
+        <h1
+          id="tittle"
+          className="text-3xl font-bold cursor-pointer text-red-600 hover:text-red-500 transition duration-300"
+          onClick={() => router.push("/")}
+        >
+          IZNAFLIX
+        </h1>
 
-                {/* Navegación principal */}
-                <nav className="md:flex font-semibold">
-                    <button
-                        onClick={() => router.push('/?showContent=true#perfiles')}
-                        className="hover:text-gray-300"
-                    >
-                        Miembros
-                    </button>
-                    <button
-                        onClick={() => router.push('/musica')}
-                        className="hover:text-gray-300"
-                    >
-                        Música
-                    </button>
-                    <button
-                        onClick={() => router.push('/iland-2')}
-                        className="hover:text-gray-300"
-                    >
-                        I-LAND 2
-                    </button>
-                </nav>
+        {/* Navegación principal */}
+        <nav id="navmovil" className="md:flex font-semibold">
+          <button
+            onClick={() => router.push("/?showContent=true#perfiles")}
+            className="hover:text-gray-300"
+          >
+            Miembros
+          </button>
+          <button
+            onClick={() => router.push("/musica")}
+            className="hover:text-gray-300"
+          >
+            Música
+          </button>
+          <button
+            onClick={() => router.push("/iland-2")}
+            className="hover:text-gray-300"
+          >
+            I-LAND 2
+          </button>
+        </nav>
 
-                {/* Iconos de la derecha */}
-                <div className="flex items-center space-x-4">
-                    {/* Imagen de perfil */}
-                    <div className="relative">
-                        {perfilActual && (
-                            <img
-                                src={perfilActual.img}
-                                alt={perfilActual.nombre}
-                                className="w-8 h-8 rounded-full cursor-pointer mx-8"
-                                style={{ width: "40px", height: "40px", objectFit: "cover" }}
-                                onClick={() => router.push('/?showContent=true#perfiles')}
-                            />
-                        )}
-                    </div>
-                    </div>
-                </div>
-
-        </header>
-    )
-    );
+        {/* Iconos de la derecha */}
+        <div className="flex items-center space-x-4">
+          {/* Imagen de perfil */}
+          <div className="relative">
+            {perfilActual && (
+              <img
+                src={perfilActual.img}
+                alt={perfilActual.nombre}
+                className="w-8 h-8 rounded-full cursor-pointer mx-8"
+                style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                onClick={() => router.push("/?showContent=true#perfiles")}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
 }

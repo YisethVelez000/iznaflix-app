@@ -1,6 +1,5 @@
 button {
     background-color: black;
-    padding-left : 40px;
     color: white;
     border: none;
     font-size: 1rem;
@@ -28,5 +27,17 @@ button:hover::after {
 h1#tittle {
     color: #e50914;
     font-size: 1.5rem;
-    padding-left: 40px;
+    padding-left: 10px;
+}
+
+nav#navmovil{
+    padding: 0px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    margin: 0px;
+}
+
+header{
+    width: 40px;
+    margin-bottom: 10px;
 }
