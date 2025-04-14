@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
 
 const perfiles = [
   {
