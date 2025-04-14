@@ -43,7 +43,7 @@ export default function Header() {
                 </h1>
 
                 {/* Navegación principal */}
-                <nav className="md:flex font-semibold">
+                <nav className="sm:hidden md:hidden lg:flex space-x-4">
                     <button
                         onClick={() => router.push('/?showContent=true#perfiles')}
                         className="hover:text-gray-300"
@@ -66,44 +66,6 @@ export default function Header() {
 
                 {/* Iconos de la derecha */}
                 <div className="flex items-center space-x-4">
-                    {/* Icono de búsqueda */}
-                    <button className="hover:text-gray-300">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1016.65 16.65z"
-                            />
-                        </svg>
-                    </button>
-
-                    {/* Botón infantil */}
-                    <button className="hover:text-gray-300 bg-gray-800">Infantil</button>
-
-                    {/* Icono de notificaciones */}
-                    <button className="hover:text-gray-300 bg-gray-800">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                            />
-                        </svg>
-                    </button>
 
                     {/* Imagen de perfil */}
                     <div className="relative">
@@ -117,8 +79,8 @@ export default function Header() {
                             />
                         )}
                     </div>
-                    </div>
-                </div>
+                </div> {/* Closing the flex container for icons */}
+            </div> {/* Closing the main container */}
 
             {/* Menú desplegable para móviles */}
             {menuOpen && (

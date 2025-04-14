@@ -15,7 +15,7 @@ export default function Perfiles() {
 
     return (
         /* llamamos al header */
-        <div className="grid grid-cols-4 gap-y-12 gap-x-6 justify-items-center mt-12">
+        <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-y-12 gap-x-6 justify-items-center mt-12">
             {perfiles.map((perfil, index) => (
                 <div key={index} className="flex flex-col items-center group cursor-pointer transition-transform transform hover:scale-105 mb-[20px] mx-[20px] text-center">
                     <Link href={`/perfiles/${perfil.nombre.toLowerCase()}`}>
@@ -23,7 +23,7 @@ export default function Perfiles() {
                             <img 
                                 src={perfil.img} 
                                 alt={perfil.nombre} 
-                                style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                                style={{ width: "80px", height: "80px", objectFit: "cover" }}
                             />
                         </div>
                         <span className="text-gray-400 text-center mx-4">{perfil.nombre.toUpperCase()}</span>
