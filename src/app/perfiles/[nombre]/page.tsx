@@ -21,6 +21,21 @@ export default function Perfil() {
   // Estado para controlar si el video terminó
   const [videoTerminado, setVideoTerminado] = useState(false);
 
+  // Si es pantalla pequeña (768px o menos), muestra el video en pantalla completa
+  const [smallScreen, setSmallScreen] = useState(false);
+  React.useEffect(() => {
+    const handleResize = () => {
+      setSmallScreen(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Llamar a la función una vez al cargar el componente
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // Si no se encuentra el perfil, muestra un mensaje de error
   if (!perfil) {
     return (
@@ -33,7 +48,86 @@ export default function Perfil() {
 
   // Renderiza el perfil encontrado con el video en un aside
   return (
-    <>
+    smallScreen ? (
+      <>
+      <div className="bg-black text-white m-4">
+        <Header /> {/* Llama al componente Header */}
+      </div>
+      <div className="w-full h-screen flex flex-col items-center justify-center mt-10">
+        <div className="w-3/3 bg-gray-800 flex items-center justify-center h-full mt-8">
+          {videoTerminado ? (
+            // Mostrar imagen personalizada cuando el video termine
+            <img
+              src={perfil.imagen}
+              alt={`Imagen de ${perfil.nombre}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            // Mostrar el reproductor mientras el video no haya terminado
+            <ReactPlayer
+              url={perfil.video}
+              width="100%"
+              height="100%"
+              playing
+              controls
+              onEnded={() => setVideoTerminado(true)} // Cambiar estado al terminar el video
+              config={{
+                youtube: {
+                  playerVars: {
+                    autoplay: 1,
+                    cc_load_policy: 1, // Activa subtítulos
+                    modestbranding: 1, // Oculta el logo de YouTube
+                    rel: 0, // Evita recomendaciones de otros videos
+                  },
+                },
+              }}
+            />
+          )}
+        </div>
+
+        {/* Contenido principal */}
+        <main className="bg-black text-white flex flex-col items-center justify-center">
+          <div className="bg-black bg-opacity-50 p-6 rounded-lg text-center">
+            <h2 className="text-4xl font-bold mb-6">Hola, {perfil.nombre}</h2>
+            <p className="text-lg mb-4">Bienvenido a tu perfil.</p>
+            {perfil.id && (
+              <p className="text-lg mb-4">
+                Fue la {perfil.id}° integrante en ser revelada en I-LAND 2.
+              </p>
+            )}
+            {perfil.fechaNacimiento && (
+              <p className="text-lg mb-4">
+                Fecha Nacimiento:{" "}
+                {perfil.fechaNacimiento.toLocaleDateString("es-ES", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            )}
+            {perfil.signoSodiacal && (
+              <p className="text-lg mb-4">
+                Signo Zodiacal: {perfil.signoSodiacal} {perfil.iconoSigno}
+              </p>
+            )}
+            {perfil.mbti && (
+              <p className="text-lg mb-4">MBTI: {perfil.mbti}</p>
+            )}
+            {perfil.nacionalidad && (
+              <p className="text-lg mb-4">Nacionalidad: {perfil.nacionalidad}</p>
+            )}
+            {perfil.colorFavorito && (
+              <p className="text-lg mb-4">
+                Color Favorito: {perfil.colorFavorito}
+              </p>
+            )}
+            <p className="text-lg mb-4">¡Disfruta de tu contenido!</p>
+          </div>
+        </main>
+      </div>
+    </>
+    ): (
+      <>
       <div className="bg-black text-white">
         <Header /> {/* Llama al componente Header */}
       </div>
@@ -111,6 +205,7 @@ export default function Perfil() {
         </main>
       </div>
     </>
+    )
   );
 }
 
