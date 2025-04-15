@@ -13,6 +13,7 @@ import {
   TbZodiacAries,
   TbZodiacAquarius,
 } from "react-icons/tb"
+import React from "react"
 
 export default function MiembroDetalle() {
   const params = useParams()
@@ -117,7 +118,7 @@ export default function MiembroDetalle() {
                   <div className="space-y-3">
                     <div>
                       <span className="text-gray-400">Fecha de Nacimiento:</span>
-                      <div>{miembro.fechaNacimiento ? miembro.fechaNacimiento.toLocaleDateString() : "N/A"}</div>
+                        <div>{miembro.fechaNacimiento ? new Date(miembro.fechaNacimiento).toISOString().split('T')[0] : "N/A"}</div>
                     </div>
 
                     <div>

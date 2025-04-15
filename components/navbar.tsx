@@ -1,11 +1,12 @@
 "use client"
 
+import React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter, usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 import { Menu, X } from "lucide-react"
 
 export default function Navbar() {

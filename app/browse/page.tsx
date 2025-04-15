@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Navbar from "@/components/navbar"
-import FeaturedContent from "@/components/featured-content"
-import Recommendations from "@/components/recommendations"
+import Navbar from "../../components/navbar"
+import FeaturedContent from "../../components/featured-content"
+import Recommendations from "../../components/recommendations"
+import React from "react"
 
 export default function Browse() {
   const [selectedProfile, setSelectedProfile] = useState<string | null>(null)
