@@ -34,6 +34,7 @@ export default function Recommendations() {
             "https://cdn.wake-one.com/wp-content/uploads/2025/04/03085641/izna_SIGN_cover_final-scaled.jpg",
           link: "/musica",
         },
+
       ],
     },
     {
@@ -54,6 +55,12 @@ export default function Recommendations() {
         {
           id: 3,
           title: "Episodio 3",
+          image: "/placeholder.svg?height=400&width=600",
+          link: "/iland",
+        },
+        {
+          id: 4,
+          title: "Episodio 4",
           image: "/placeholder.svg?height=400&width=600",
           link: "/iland",
         },

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
+import React from "react"
 
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
