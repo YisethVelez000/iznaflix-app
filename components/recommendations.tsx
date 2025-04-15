@@ -18,56 +18,20 @@ interface Category {
 export default function Recommendations() {
   const [categories, setCategories] = useState<Category[]>([
     {
-      title: "Miembros populares",
-      items: [
-        {
-          id: 1,
-          title: "Koko",
-          image: "https://www.mnetplus.world/static/images/uploaded/68d5bfd1-2cfd-4efb-813b-7354ece157ec?webp=1&w=1240",
-          link: "/miembros/koko",
-        },
-        {
-          id: 2,
-          title: "Jiyoon",
-          image: "https://www.mnetplus.world/static/images/uploaded/d78c3879-bbe8-413d-b651-4fbbd97ac689?webp=1&w=1240",
-          link: "/miembros/jiyoon",
-        },
-        {
-          id: 3,
-          title: "Jeemin",
-          image: "https://www.mnetplus.world/static/images/uploaded/b69e7fa0-ba57-4645-ba91-a5fe72e7b61e?webp=1&w=1240",
-          link: "/miembros/jeemin",
-        },
-        {
-          id: 4,
-          title: "Jungeun",
-          image: "https://www.mnetplus.world/static/images/uploaded/5846e9b7-442e-4f86-ad4d-abbfc349c2b6?webp=1&w=1240",
-          link: "/miembros/jungeun",
-        },
-      ],
-    },
-    {
       title: "Música destacada",
       items: [
         {
           id: 1,
-          title: "IZNA - Debut Single",
+          title: "IZNA",
           image:
             "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
           link: "/musica",
         },
         {
           id: 2,
-          title: "IZNA - The First Step",
+          title: "SING",
           image:
-            "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
-          link: "/musica",
-        },
-        {
-          id: 3,
-          title: "IZNA - Live Performance",
-          image:
-            "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
+            "https://cdn.wake-one.com/wp-content/uploads/2025/04/03085641/izna_SIGN_cover_final-scaled.jpg",
           link: "/musica",
         },
       ],

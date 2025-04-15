@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Navbar from "@/components/navbar"
+import Navbar from "../../components/navbar"
 import { motion } from "framer-motion"
+import React from "react"
 
 export default function ILand() {
   const [selectedProfile, setSelectedProfile] = useState<string | null>(null)
@@ -38,7 +39,7 @@ export default function ILand() {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/videoseries?list=PLr0T5CaHaPwVVVXuT4eMqXFGQpnMJ_hpA"
+            src="https://fkplayer.xyz/e/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW5rIjoiYUhSMGNITTZMeTkyYjJVdWMzZ3ZaUzlvT0ROcU5YTTFkbVUwYm5FPSIsInNlcnZlciI6IjEyMzAiLCJhcHAiOiJjb20uYXNpYXBwLmRvcmFtYXNnbyIsImlhdCI6MTc0NDcyNjc2NywiZXhwIjoxNzQ0OTg1OTY3fQ.DHzqK257ovHukzloKGxBk0oEUT-nJOQ-j5_Vcyz1f4M"
             title="iLand Playlist"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
