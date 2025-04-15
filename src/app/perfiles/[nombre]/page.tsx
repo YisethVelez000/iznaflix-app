@@ -10,6 +10,7 @@ import { TbZodiacTaurus } from "react-icons/tb";
 import { TbZodiacAquarius } from "react-icons/tb";
 import { TbZodiacAries } from "react-icons/tb";
 import { TbZodiacLeo } from "react-icons/tb";
+import { sign } from "crypto";
 
 export default function Perfil() {
   const params = useParams(); // Usa useParams para obtener los parámetros de la URL
