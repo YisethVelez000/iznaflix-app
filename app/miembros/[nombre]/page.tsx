@@ -83,20 +83,6 @@ export default function MiembroDetalle() {
       <Navbar />
 
       <div className="pt-16">
-        {/* Video del miembro */}
-        <div className="w-full aspect-video">
-          <iframe
-            width="100%"
-            height="100%"
-            src={miembro.video}
-            title={miembro.nombre}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          ></iframe>
-        </div>
-
         <div className="px-6 md:px-12 py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
