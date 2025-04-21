@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
-import Navbar from "@/components/navbar"
+import Navbar from "../../../components/navbar"
 import { motion } from "framer-motion"
 import {
   TbZodiacScorpio,
