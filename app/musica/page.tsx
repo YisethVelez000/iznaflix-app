@@ -28,21 +28,34 @@ export default function Musica() {
     } else {
       setSelectedProfile(profile)
     }
-
+  
     if (typeof window === "undefined") return
-
+  
     const script = document.createElement("script")
     script.src = "https://w.soundcloud.com/player/api.js"
     script.async = true
     document.body.appendChild(script)
-
+  
+    const cleanup = () => {
+      try {
+        if (widgetRef.current && iframeRef.current?.contentWindow) {
+          widgetRef.current.unbind(window.SC.Widget.Events.PLAY)
+          widgetRef.current.unbind(window.SC.Widget.Events.PAUSE)
+          widgetRef.current.unbind(window.SC.Widget.Events.FINISH)
+          widgetRef.current = null
+        }
+      } catch (error) {
+        console.warn("Error durante limpieza del widget:", error)
+      }
+    }
+  
     script.onload = () => {
       const checkWidgetReady = setInterval(() => {
         if (window.SC && window.SC.Widget && iframeRef.current) {
           clearInterval(checkWidgetReady)
-
+  
           widgetRef.current = window.SC.Widget(iframeRef.current)
-
+  
           widgetRef.current.bind(window.SC.Widget.Events.PLAY, () => setIsPlaying(true))
           widgetRef.current.bind(window.SC.Widget.Events.PAUSE, () => setIsPlaying(false))
           widgetRef.current.bind(window.SC.Widget.Events.FINISH, () => {
@@ -52,16 +65,13 @@ export default function Musica() {
         }
       }, 100)
     }
-
+  
     return () => {
+      cleanup()
       document.body.removeChild(script)
-      if (widgetRef.current) {
-        widgetRef.current.unbind(window.SC.Widget.Events.PLAY)
-        widgetRef.current.unbind(window.SC.Widget.Events.PAUSE)
-        widgetRef.current.destroy()
-      }
     }
   }, [router])
+  
 
   const handlePlay = (trackUrl: string) => {
     if (!widgetRef.current) {
