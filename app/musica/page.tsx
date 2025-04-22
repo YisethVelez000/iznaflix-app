@@ -100,7 +100,7 @@ export default function Musica() {
       titulo: "IZNA",
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
-      album: "IZNA",
+      album: "N/a",
       audio: "https://soundcloud.com/izna-music/izna"
     },
     {
@@ -108,7 +108,7 @@ export default function Musica() {
       titulo: "TIMEBOMB",
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
-      album: "IZNA",
+      album: "N/a",
       audio: "https://soundcloud.com/izna-music/timebomb"
     },
     {
@@ -116,7 +116,7 @@ export default function Musica() {
       titulo: "IWALY (Izna Version)",
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
-      album: "IZNA",
+      album: "N/a",
       audio: "https://soundcloud.com/izna-music/iwaly-izna-version"
     },
     {
@@ -124,7 +124,7 @@ export default function Musica() {
       titulo: "DRIP",
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
-      album: "IZNA",
+      album: "N/a",
       audio: "https://soundcloud.com/izna-music/drip"
     },
     {
@@ -132,7 +132,7 @@ export default function Musica() {
       titulo: "FAKE IT",
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
-      album: "IZNA",
+      album: "N/a",
       audio: "https://soundcloud.com/izna-music/fake-it"
     },
     {
