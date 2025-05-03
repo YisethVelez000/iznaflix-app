@@ -22,7 +22,7 @@ export default function FeaturedContent() {
 
       <div className="absolute inset-0">
         <Image
-          src="https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg"
+          src="https://lh3.googleusercontent.com/X8ImVtBIl5y-ixd4p-NMDUBls1fmFm9-aNXEaQc51D79sjP-vRTuycy_dExSQCQ5QWCCaqxotNBhdyU=w2880-h1200-p-l90-rj"
           alt="IZNA"
           fill
           className="object-cover"
