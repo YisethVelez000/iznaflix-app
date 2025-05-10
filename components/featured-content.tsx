@@ -47,13 +47,19 @@ export default function FeaturedContent() {
             <Play size={20} />
             Reproducir
           </Button>
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 bg-gray-700/60 text-white border-none hover:bg-gray-700/80"
+          <a
+            href="https://wake-one.com/en/artists/izna/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Info size={20} />
-            Más información
-          </Button>
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 bg-gray-700/60 text-white border-none hover:bg-gray-700/80"
+            >
+              <Info size={20} />
+              Más información 
+            </Button>
+          </a>
         </div>
       </motion.div>
     </div>

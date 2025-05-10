@@ -43,7 +43,7 @@ export default function Navbar() {
     { name: "Inicio", path: "/browse" },
     { name: "Miembros", path: "/miembros" },
     { name: "Música", path: "/musica" },
-    { name: "iLand-2", path: "/iland" },
+    { name: "iLand 2", path: "/iland" },
   ]
 
   return (
