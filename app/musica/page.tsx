@@ -5,20 +5,13 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import { motion } from "framer-motion"
-import { Play } from "lucide-react"
-
-declare global {
-  interface Window {
-    SC: any
-  }
-}
+import { Play, Pause } from "lucide-react"
 
 export default function Musica() {
   const [selectedProfile, setSelectedProfile] = useState<string | null>(null)
   const [currentTrack, setCurrentTrack] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const widgetRef = useRef<any>(null)
-  const iframeRef = useRef<HTMLIFrameElement | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -28,70 +21,26 @@ export default function Musica() {
     } else {
       setSelectedProfile(profile)
     }
-
-    if (typeof window === "undefined") return
-
-    const script = document.createElement("script")
-    script.src = "https://w.soundcloud.com/player/api.js"
-    script.async = true
-    document.body.appendChild(script)
-
-    const cleanup = () => {
-      try {
-        if (widgetRef.current && iframeRef.current?.contentWindow) {
-          widgetRef.current.unbind(window.SC.Widget.Events.PLAY)
-          widgetRef.current.unbind(window.SC.Widget.Events.PAUSE)
-          widgetRef.current.unbind(window.SC.Widget.Events.FINISH)
-          widgetRef.current = null
-        }
-      } catch (error) {
-        console.warn("Error durante limpieza del widget:", error)
-      }
-    }
-
-    script.onload = () => {
-      const checkWidgetReady = setInterval(() => {
-        if (window.SC && window.SC.Widget && iframeRef.current) {
-          clearInterval(checkWidgetReady)
-
-          widgetRef.current = window.SC.Widget(iframeRef.current)
-
-          widgetRef.current.bind(window.SC.Widget.Events.PLAY, () => setIsPlaying(true))
-          widgetRef.current.bind(window.SC.Widget.Events.PAUSE, () => setIsPlaying(false))
-          widgetRef.current.bind(window.SC.Widget.Events.FINISH, () => {
-            setIsPlaying(false)
-            setCurrentTrack(null)
-          })
-        }
-      }, 100)
-    }
-
-    return () => {
-      cleanup()
-      document.body.removeChild(script)
-    }
   }, [router])
 
   const handlePlay = (trackUrl: string) => {
-    if (!widgetRef.current) {
-      console.log("Widget no está listo aún.")
-      return
-    }
-
     if (currentTrack === trackUrl) {
-      widgetRef.current.toggle()
+      if (isPlaying) {
+        audioRef.current?.pause()
+      } else {
+        audioRef.current?.play()
+      }
     } else {
       setCurrentTrack(trackUrl)
-      widgetRef.current.load(trackUrl, {
-        auto_play: true,
-        visual: false,
-        buying: false,
-        liking: false,
-        download: false,
-        sharing: false,
-        show_artwork: false,
-      })
+      setTimeout(() => {
+        audioRef.current?.play()
+      }, 0)
     }
+  }
+
+  const handleEnded = () => {
+    setIsPlaying(false)
+    setCurrentTrack(null)
   }
 
   const albums = [
@@ -101,7 +50,7 @@ export default function Musica() {
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
       album: "N/a",
-      audio: "https://soundcloud.com/izna-music/izna"
+      audio: "/music/izna.mp3"
     },
     {
       id: 2,
@@ -109,7 +58,7 @@ export default function Musica() {
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
       album: "N/a",
-      audio: "https://soundcloud.com/izna-music/timebomb"
+      audio: "/music/TIMEBOMB.mp3"
     },
     {
       id: 3,
@@ -117,7 +66,7 @@ export default function Musica() {
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
       album: "N/a",
-      audio: "https://soundcloud.com/izna-music/iwaly-izna-version"
+      audio: "/music/iwaly-izna-version.mp3"
     },
     {
       id: 4,
@@ -125,7 +74,7 @@ export default function Musica() {
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
       album: "N/a",
-      audio: "https://soundcloud.com/izna-music/drip"
+      audio: "/music/DRIP.mp3"
     },
     {
       id: 5,
@@ -133,7 +82,7 @@ export default function Musica() {
       imagen: "https://linkstorage.linkfire.com/medialinks/images/d68e02cd-eecd-41ab-b454-9b69f5efe7c9/artwork-440x440.jpg",
       año: 2024,
       album: "N/a",
-      audio: "https://soundcloud.com/izna-music/fake-it"
+      audio: "/music/fake-it.mp3"
     },
     {
       id: 6,
@@ -141,8 +90,16 @@ export default function Musica() {
       imagen: "https://cdn.wake-one.com/wp-content/uploads/2025/04/03085641/izna_SIGN_cover_final-scaled.jpg",
       año: 2025,
       album: "SING",
-      audio: "https://api.soundcloud.com/tracks/2062860472"
+      audio: "/music/SIGN.mp3"
     },
+    {
+      id: 7,
+      titulo: "SASS (Prod. THE HUB)",
+      imagen: "https://images.genius.com/67c671503aad9686e3d37ba71eeed4e3.1000x1000x1.jpg",
+      año: 2025,
+      album: "월드 오브 스트릿 우먼 파이터 (WSWF) Original Vol.1",
+      audio: "/music/sass.mp3"
+    }
   ]
 
   const groupedAlbums = albums.reduce((acc, track) => {
@@ -168,19 +125,39 @@ export default function Musica() {
     show: { opacity: 1, y: 0 },
   }
 
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const onPlay = () => setIsPlaying(true)
+    const onPause = () => setIsPlaying(false)
+    const onEnded = () => handleEnded()
+
+    audio.addEventListener("play", onPlay)
+    audio.addEventListener("pause", onPause)
+    audio.addEventListener("ended", onEnded)
+
+    return () => {
+      audio.removeEventListener("play", onPlay)
+      audio.removeEventListener("pause", onPause)
+      audio.removeEventListener("ended", onEnded)
+    }
+    // eslint-disable-next-line
+  }, [currentTrack])
+
   if (!selectedProfile) return null
 
   return (
     <main className="min-h-screen bg-black text-white">
       <Navbar />
 
-      {/* Iframe oculto pero funcional */}
-      <iframe
-        ref={iframeRef}
-        style={{ position: "absolute", left: "-9999px" }}
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url="
-      ></iframe>
+      {/* Audio player oculto */}
+      <audio
+        ref={audioRef}
+        src={currentTrack || undefined}
+        style={{ display: "none" }}
+        preload="auto"
+      />
 
       <div className="pt-24 px-6 md:px-12">
         <h1 className="text-4xl font-bold mb-8">Música</h1>
@@ -214,11 +191,7 @@ export default function Musica() {
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <div className={`bg-white rounded-full p-3 ${currentTrack === track.audio && isPlaying ? 'text-green-500' : 'text-black'}`}>
                         {currentTrack === track.audio && isPlaying ? (
-                          <div className="flex space-x-1">
-                            <div className="w-1 h-4 bg-current animate-pulse"></div>
-                            <div className="w-1 h-4 bg-current animate-pulse delay-100"></div>
-                            <div className="w-1 h-4 bg-current animate-pulse delay-200"></div>
-                          </div>
+                          <Pause className="fill-current" size={24} />
                         ) : (
                           <Play className="fill-current" size={24} />
                         )}
